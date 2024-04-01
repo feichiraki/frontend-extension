@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 100px;
+            /* 父元素进行对比度处理 ，默认值为1 */
+            /* filter: contrast(10);    */
+            filter: url(#blob);
+        }
+
+        .ball {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #28c840;
+            /* 小球模糊操作 */
+            /* filter: blur(5px); */
+        }
+
+        .ball:last-child {
+            /* 最后一个元素，向上移动20px */
+            margin-top: -20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="ball"></div>
+        <div class="ball"></div>
+    </div>
+
+    <svg style="display: none;">
+        <defs>
+            <filter id="blob">
+                <!-- 高斯模糊算法 -->
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+                <!-- 透明度算法：这里需要把矩阵计算搞明白 -->
+                <feColorMatrix 
+                    in="blur" 
+                    mode="matrix"
+                    values="
+                    1 0 0 0 0
+                    0 1 0 0 0 
+                    0 0 1 0 0 
+                    0 0 0 20 -10
+                "></feColorMatrix>
+            </filter>
+        </defs>
+    </svg>
+</body>
+
+</html>

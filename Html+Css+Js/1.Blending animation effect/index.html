@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blending animation effect</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <div class="footer">
+        <div class="bubbles">
+            <div class="bubble"></div>
+        </div>
+    </div>
+
+    <!-- 添加svg -->
+    <svg style="display: none;">
+        <defs>
+            <filter id="blob">
+                <!-- 高斯模糊算法 -->
+                <feGaussianBlur 
+                    in="SourceGraphic"
+                    stdDeviation="10"
+                    result="blur"
+                ></feGaussianBlur>
+                <!-- 透明度算法：这里需要把矩阵计算搞明白 -->
+                <feColorMatrix 
+                    in="blur" 
+                    mode="matrix"
+                    values="
+                    1 0 0 0 0
+                    0 1 0 0 0 
+                    0 0 1 0 0 
+                    0 0 0 20 -10
+                "></feColorMatrix>
+            </filter>
+        </defs>
+    </svg>
+
+    <script src="./js/index.js"></script>
+</body>
+</html>
